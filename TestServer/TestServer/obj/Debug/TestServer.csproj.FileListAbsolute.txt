@@ -12,3 +12,11 @@ C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServe
 D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\TestServer.exe.config
 D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\obj\Debug\TestServer.exe
 D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\obj\Debug\TestServer.pdb
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\NLog.config
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\TestServer.exe
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\TestServer.pdb
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\NLog.dll
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\NLog.StructuredEvents.dll
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\NLog.xml
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\NLog.StructuredEvents.xml
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\obj\Debug\TestServer.csprojResolveAssemblyReference.cache

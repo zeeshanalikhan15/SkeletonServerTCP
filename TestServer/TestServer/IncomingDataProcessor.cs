@@ -30,7 +30,7 @@ namespace TestServer
 
         public  void AddData(int session, List<byte> data)
         {
-            _logger.Info("ClientSession:" + session + "|DataRecievedForParsing:" + data);
+            _logger.Info("RecievedData|ClientSession:" + session + "|Data:" + Convert.ToString(data));
             _dataToBeProcessed.TryAdd(new KeyValuePair<int, List<byte>>(session, data));
         }
 
@@ -42,7 +42,7 @@ namespace TestServer
                 try
                 {
                     var dataPair = _dataToBeProcessed.Take(_cancellationTokenSource.Token);
-                    Console.WriteLine("Client:" + dataPair.Key + "|Data: "+ dataPair.Value);
+                    _logger.Info("ProcessingRecievedData|Client:" + dataPair.Key + "|Data: "+ dataPair.Value);
                 }
                 catch (OperationCanceledException)
                 {

@@ -1,0 +1,6 @@
+18:02:16|Info|Program.Main|Starting Server
+18:02:16|Info|Program.Main => Server.Start => AsynchronousSocketListener.StartListening|Starting Server
+18:02:16|Info|ExecutionContext.RunInternal => ThreadHelper.ThreadStart_Context => IncomingDataProcessor.IncomingDataProcessingThread|Entering IncomingDataProcessingThread
+18:03:45|Info|ContextAwareResult.CompleteCallback => LazyAsyncResult.Complete => AsynchronousSocketListener.AcceptCallback|Reciving Connection|Socket:System.Net.Sockets.Socket
+18:03:45|Info|ContextAwareResult.CompleteCallback => LazyAsyncResult.Complete => AsynchronousSocketListener.AcceptCallback|Connection Recieved|Socket:System.Net.Sockets.Socket|ClientSession:1
+18:03:45|Info|ContextAwareResult.CompleteCallback => LazyAsyncResult.Complete => ClientConnection.ReadCallback|Session:1|DataRecieved:6

@@ -1,0 +1,11 @@
+18:10:25|Info|Program.Main|Starting Server
+18:10:25|Info|Program.Main => Server.Start => AsynchronousSocketListener.StartListening|Starting Server
+18:10:25|Info|ExecutionContext.RunInternal => ThreadHelper.ThreadStart_Context => IncomingDataProcessor.IncomingDataProcessingThread|Entering IncomingDataProcessingThread
+18:10:25|Info|Program.Main => Server.Start => AsynchronousSocketListener.StartListening|Started Server
+18:11:16|Info|ContextAwareResult.CompleteCallback => LazyAsyncResult.Complete => AsynchronousSocketListener.AcceptCallback|Reciving Connection|Socket:System.Net.Sockets.Socket
+18:11:16|Info|ContextAwareResult.CompleteCallback => LazyAsyncResult.Complete => AsynchronousSocketListener.AcceptCallback|Connection Recieved|Socket:System.Net.Sockets.Socket|ClientSession:1
+18:11:46|Info|ContextAwareResult.CompleteCallback => LazyAsyncResult.Complete => ClientConnection.ReadCallback|Session:1|DataRecieved:6
+18:13:25|Info|LazyAsyncResult.Complete => ClientConnection.ReadCallback => ClientConnection.Stop|ClosingSocket|ClientSession:1
+18:13:25|Error|ContextAwareResult.CompleteCallback => LazyAsyncResult.Complete => ClientConnection.ReadCallback|Exception:System.Net.Sockets.SocketException (0x80004005): An existing connection was forcibly closed by the remote host
+   at System.Net.Sockets.Socket.EndReceive(IAsyncResult asyncResult)
+   at TestServer.ClientConnection.ReadCallback(IAsyncResult ar) in C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServer\ClientConnection.cs:line 41

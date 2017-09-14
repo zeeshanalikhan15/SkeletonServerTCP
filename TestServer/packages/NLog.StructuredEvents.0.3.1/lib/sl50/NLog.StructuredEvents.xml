@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NLog.StructuredEvents</name>
+    </assembly>
+    <members>
+        <member name="T:NLog.StructuredEvents.RenderException">
+            <summary>
+            Rendering failed
+            </summary>
+        </member>
+        <member name="P:NLog.StructuredEvents.RenderException.Template">
+            <summary>
+            The template that triggered this exception.
+            </summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.RenderException.#ctor">
+            <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class.</summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.RenderException.#ctor(System.String)">
+            <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message.</summary>
+            <param name="message">The message that describes the error. </param>
+        </member>
+        <member name="M:NLog.StructuredEvents.RenderException.#ctor(System.String,System.Exception)">
+            <summary>Initializes a new instance of the <see cref="T:System.Exception" /> class with a specified error message and a reference to the inner exception that is the cause of this exception.</summary>
+            <param name="message">The error message that explains the reason for the exception. </param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference (Nothing in Visual Basic) if no inner exception is specified. </param>
+        </member>
+        <member name="T:NLog.StructuredEvents.Template">
+            <summary>
+            A template
+            </summary>
+        </member>
+        <member name="P:NLog.StructuredEvents.Template.Value">
+            <summary>The original template string.</summary>
+            <remarks>This is the key passed to structured targets.</remarks>     
+        </member>
+        <member name="P:NLog.StructuredEvents.Template.Literals">
+            <summary>The list of literal parts, useful for string rendering.
+            It indicates the number of characters from the original string to print,
+            then there's a hole with how many chars to skip.</summary>
+            <example>
+            "Hello {firstName} {lastName}!"
+            -------------------------------------
+            ║P     |S          ║P|S         ║P|S║
+            ║6     |11         ║1|10        ║1|0║
+            ║Hello |{firstName}║ |{lastName}║!║
+            
+            "{x} * 2 = {2x}"
+            --------------------
+            ║P|S  ║P      |S   ║
+            ║0|3  ║7      |4   ║
+              ║{x}║ * 2 = |{2x}║
+            
+            The tricky part is escaped braces. They are represented by a skip = 0,
+            which is interpreted as "move one char forward, no hole".
+            
+            "Escaped }} is fun."
+            ----------------------
+            ║P        |S║P       |S║
+            ║9        |0║8       |0║
+            ║Escaped }|}║ is fun.|║
+            </example>
+        </member>
+        <member name="P:NLog.StructuredEvents.Template.Holes">
+            <summary> This list of holes. It's used both to fill the string rendering
+            and to send values along the template to structured targets.</summary>
+        </member>
+        <member name="P:NLog.StructuredEvents.Template.IsPositional">
+            <summary>Indicates whether the template should be interpreted as positional 
+            (all holes are numbers) or named.</summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.Template.#ctor(System.String,System.Boolean,System.Collections.Generic.List{NLog.StructuredEvents.Parts.Literal},System.Collections.Generic.List{NLog.StructuredEvents.Parts.Hole})">
+            <summary>
+            Create a template, which is already parsed
+            </summary>
+            <param name="template"></param>
+            <param name="isPositional"></param>
+            <param name="literals"></param>
+            <param name="holes"></param>
+        </member>
+        <member name="M:NLog.StructuredEvents.Template.Rebuild">
+            <summary>This is for testing only: recreates <see cref="P:NLog.StructuredEvents.Template.Value"/> from the parsed data.</summary>
+        </member>
+        <member name="T:NLog.StructuredEvents.TemplateParser">
+            <summary>
+            Parse templates.
+            </summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.TemplateParser.Parse(System.String)">
+            <summary>
+            Parse a template.
+            </summary>
+            <param name="template">Template to be parsed.</param>
+            <exception cref="T:System.ArgumentNullException">When <paramref name="template"/> is null.</exception>
+            <returns>Template, never null</returns>
+        </member>
+        <member name="M:NLog.StructuredEvents.TemplateParser.AddLiteral(System.Int32)">
+            <summary>Literals are added to the result list when:
+            - a hole is encountered
+            - an escape is encountered. The escape itself is always included in the preceding literal.
+            - at the end of the template.</summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.TemplateParser.ParseFormat">
+            <summary>
+            Parse format after hole name/index. Handle the escaped { and } in the format. Don't read the last }
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:NLog.StructuredEvents.TemplateParserException">
+            <summary>
+            Error when parsing a template.
+            </summary>
+        </member>
+        <member name="P:NLog.StructuredEvents.TemplateParserException.Index">
+            <summary>
+            Current index when the error occurred.
+            </summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.TemplateParserException.#ctor(System.String,System.Int32)">
+            <summary>
+            New exception
+            </summary>
+            <param name="message">The message to be shown.</param>
+            <param name="index">Current index when the error occurred.</param>
+        </member>
+        <member name="T:NLog.StructuredEvents.TemplateRenderer">
+            <summary>
+            Render templates
+            </summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.TemplateRenderer.Render(NLog.StructuredEvents.Template,System.IFormatProvider,System.Object[])">
+            <summary>
+            Render a template to a string.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="formatProvider">Culture.</param>
+            <param name="parameters">Parameters for the holes.</param>
+            <returns>Rendered template, never null.</returns>
+        </member>
+        <member name="T:NLog.StructuredEvents.ValueRenderer">
+            <summary>
+            Render or serialize a value, with optionnally backwardscompatible with <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object[])"/>
+            </summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.ValueRenderer.AppendValue(System.Text.StringBuilder,System.Object,System.Boolean,System.String,System.IFormatProvider)">
+            <summary>
+            Serialize the value and append to the <paramref name="sb"/>.
+            </summary>
+            <param name="sb">Append to this builder.</param>
+            <param name="value">The value to be appended.</param>
+            <param name="legacy">is this legacy AKA string.format style?</param>
+            <param name="format">Formatting for <see cref="T:System.IFormattable"/>.</param>
+            <param name="formatProvider">Provider for formatting.</param>
+        </member>
+        <member name="T:NLog.StructuredEvents.Parts.CaptureType">
+            <summary>
+            The type of the captured hole
+            </summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.CaptureType.Normal">
+            <summary>
+            normal {x}
+            </summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.CaptureType.Serialize">
+            <summary>
+             Serialize operator {@x} (aka destructure)
+            </summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.CaptureType.Stringify">
+            <summary>
+            stringification operator {$x} 
+            </summary>
+        </member>
+        <member name="T:NLog.StructuredEvents.Parts.Hole">
+            <summary>
+            A hole that will be replaced with a value
+            </summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.Hole.Name">
+            <summary>Parameter name sent to structured loggers.</summary>
+            <remarks>This is everything between "{" and the first of ",:}". 
+            Including surrounding spaces and names that are numbers.</remarks>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.Hole.Format">
+            <summary>Format to render the parameter.</summary>
+            <remarks>This is everything between ":" and the first unescaped "}"</remarks>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.Hole.CaptureType">
+            <summary>
+            Type
+            </summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.Hole.Index">
+            <summary>When the template is positional, this is the parsed name of this parameter.</summary>
+            <remarks>For named templates, the value of Index is undefined.</remarks>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.Hole.Alignment">
+            <summary>Alignment to render the parameter, by default 0.</summary>
+            <remarks>This is the parsed value between "," and the first of ":}"</remarks>
+        </member>
+        <member name="T:NLog.StructuredEvents.Parts.Literal">
+            <summary>
+            A fixed value
+            </summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.Literal.Print">
+            <summary>Number of characters from the original template to copy at the current position.</summary>
+            <remarks>This can be 0 when the template starts with a hole or when there are multiple consecutive holes.</remarks>
+        </member>
+        <member name="F:NLog.StructuredEvents.Parts.Literal.Skip">
+            <summary>Number of characters to skip in the original template at the current position.</summary>
+            <remarks>0 is a special value that mean: 1 escaped char, no hole. It can also happen last when the template ends with a literal.</remarks>
+        </member>
+        <member name="T:NLog.StructuredEvents.Serialization.FuncSerializer`1">
+            <summary>
+            Serialize a type with a (lamdba) function
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:NLog.StructuredEvents.Serialization.FuncSerializer`1.#ctor(System.Func{`0,System.IFormatProvider,System.String})">
+            <summary>
+            Create a new serializer for a type with a lamba function.
+            </summary>
+            <param name="func"></param>
+        </member>
+        <member name="M:NLog.StructuredEvents.Serialization.FuncSerializer`1.SerializeObject(System.Text.StringBuilder,System.Object,System.IFormatProvider)">
+            <inheritdoc />
+        </member>
+        <member name="T:NLog.StructuredEvents.Serialization.ISerializer">
+            <summary>Serializer</summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.Serialization.ISerializer.SerializeObject(System.Text.StringBuilder,System.Object,System.IFormatProvider)">
+            <summary>Serialize an object</summary>
+            <param name="sb">Add serialized value to this builder</param>
+            <param name="value">Value to be serialized</param>
+            <param name="formatProvider">format</param>
+        </member>
+        <member name="T:NLog.StructuredEvents.Serialization.SerializationManager">
+            <summary>Manager serializers for customizing serialization of specific types</summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Serialization.SerializationManager.DefaultSerializer">
+            <summary>
+            Default serializer
+            </summary>
+        </member>
+        <member name="F:NLog.StructuredEvents.Serialization.SerializationManager.Instance">
+            <summary>
+            Instance
+            </summary>
+        </member>
+        <member name="M:NLog.StructuredEvents.Serialization.SerializationManager.GetSerializer(System.Type)">
+            <summary>
+            Get the serializer for this type.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NLog.StructuredEvents.Serialization.SerializationManager.SaveSerializer(System.Type,NLog.StructuredEvents.Serialization.ISerializer)">
+            <summary>
+            Add/update serializer for a type
+            </summary>
+            <param name="type"></param>
+            <param name="serializer"></param>
+        </member>
+        <member name="M:NLog.StructuredEvents.Serialization.SerializationManager.SaveSerializerFunc``1(System.Func{``0,System.IFormatProvider,System.String})">
+            <summary>
+            Add Serializer with only a func
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="func"></param>
+        </member>
+        <member name="M:NLog.StructuredEvents.Serialization.SerializationManager.SerializeObject(System.Text.StringBuilder,System.Object,System.IFormatProvider)">
+            <summary>
+            Serialize an object
+            </summary>
+            <param name="sb"></param>
+            <param name="value"></param>
+            <param name="formatProvider"></param>
+        </member>
+    </members>
+</doc>

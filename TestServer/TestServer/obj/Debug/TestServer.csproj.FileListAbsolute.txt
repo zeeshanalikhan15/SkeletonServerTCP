@@ -1,0 +1,14 @@
+c:\users\zeeshan.khan\documents\visual studio 2015\Projects\TestServer\TestServer\bin\Debug\TestServer.exe.config
+c:\users\zeeshan.khan\documents\visual studio 2015\Projects\TestServer\TestServer\bin\Debug\TestServer.exe
+c:\users\zeeshan.khan\documents\visual studio 2015\Projects\TestServer\TestServer\bin\Debug\TestServer.pdb
+c:\users\zeeshan.khan\documents\visual studio 2015\Projects\TestServer\TestServer\obj\Debug\TestServer.exe
+c:\users\zeeshan.khan\documents\visual studio 2015\Projects\TestServer\TestServer\obj\Debug\TestServer.pdb
+C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServer\bin\Debug\NLog.config
+C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServer\bin\Debug\NLog.dll
+C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServer\bin\Debug\NLog.StructuredEvents.dll
+C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServer\bin\Debug\NLog.xml
+C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServer\bin\Debug\NLog.StructuredEvents.xml
+C:\Users\zeeshan.khan\Documents\Visual Studio 2015\Projects\TestServer\TestServer\obj\Debug\TestServer.csprojResolveAssemblyReference.cache
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\bin\Debug\TestServer.exe.config
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\obj\Debug\TestServer.exe
+D:\E-Drive\Learning\TemplateServer\TestServer\TestServer\obj\Debug\TestServer.pdb

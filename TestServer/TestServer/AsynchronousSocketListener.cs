@@ -20,6 +20,7 @@ namespace TestServer
         private readonly SessionIdManager _sessionIdManager = new SessionIdManager();
         private readonly Logger _logger = LogManager.GetLogger("AsynchronousSocketListener");
         private readonly IncomingDataProcessor _incomingDataProcessor = new IncomingDataProcessor();
+        private OutgoingDataProcessor _outgoingDataProcessor;
         private bool _stop;
 
         public void StartListening(IPEndPoint ipEndPoint)
@@ -28,6 +29,8 @@ namespace TestServer
             {
                 _logger.Info("Starting Server");
                 _incomingDataProcessor.Start();
+                _outgoingDataProcessor = new OutgoingDataProcessor(this);
+                _outgoingDataProcessor.Start();
                 _listenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 _listenSocket.Bind(ipEndPoint);
                 _listenSocket.Listen(100);
@@ -101,6 +104,7 @@ namespace TestServer
                 }
                 _clientConnections.Clear();
                 _incomingDataProcessor.Stop();
+                _outgoingDataProcessor.Stop();
                 _logger.Info("Server Closed");
             }
             catch (Exception ex)
